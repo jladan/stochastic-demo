@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Stochastic Demo Template</title>
+  <link rel="stylesheet" href="css/plot-style.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body ng-controller="simCtrl">
+<div class="wrapper">
+<div class="controls">
+    <!-- Put the form to adjust parameters here -->
+    <form>
+        <fieldset>
+            <legend>Non-Stochastic Parameters</legend>
+            <p>
+                <input id="pA" type="number" ng-model="pA[0]" />
+                <label for="pA">Sort of like speed or frequency</label>
+            </p>
+        </fieldset>
+        <fieldset>
+            <legend>Stochastic Parameters</legend>
+            <p>
+                <input id="pD" type="number" ng-model="pD[0]" />
+                <label for="pD">Amount of Brownian motion</label>
+            </p>
+        </fieldset>
+        <fieldset>
+            <legend>Numerical Scheme</legend>
+            <p>
+                <select id="sim-select" ng-model="method">
+                    <option value="euler">Euler-Maruyama</option>
+                    <option value="milstein">Milstein</option>
+                    <option value="colour">Coloured Noise</option>
+                </select>
+                <label for="sim-select">Simulation Method</label>
+            </p>
+            <p>
+                <input id="time-correlation" type="number" ng-model="correlation" />
+                <label for="time-correlation">Time correlation</label>
+            </p>
+            <p>
+                <input id="dt" type="number" ng-model="dt" />
+                <label for="dt">Time-step</label>
+            </p>
+            <p>
+                <input id="t-final" type="number" ng-model="tfinal" />
+                <label for="t-final">Final Time</label>
+            </p>
+            <p>
+                <input id="x0" type="number" ng-model="initial[0]" />
+                <label for="x0">Initial X position</label>
+            </p>
+            <p>
+                <input id="y0" type="number" ng-model="initial[1]" />
+                <label for="y0">Initial Y position</label>
+            </p>
+        </fieldset>
+        
+    </form>
+    <button ng-click="runSimulation()">Run Simulation</button>
+</div>
+
+<!-- This is where the plot will go-->
+<div plot data='plotData' options="plotConfig" style="flex-grow: 1; height:100%">
+</div>
+
+</div>
+  <script src="lib/requirejs/require.js" data-main="js/main.js"></script>
+</body>
+</html>
