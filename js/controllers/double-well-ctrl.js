@@ -32,7 +32,14 @@ define(['./module', 'stochastics'], function (controllers, stoch) {
         $scope.dt = .01;
         $scope.pA = [1.0];
         $scope.pD = [0.1];
-        $scope.method = 'euler'
+
+        // Methods
+        $scope.methods = [
+            {label: 'Euler-Maruyama', value: 'euler'},
+            {label: 'Milstein', value: 'milstein'},
+            {label: 'Coloured', value: 'colour'},
+        ];
+        $scope.method = $scope.methods[0];
 
         /* Get the phase space from a simulation */
         var extractPhase = function (sol) {
@@ -51,17 +58,15 @@ define(['./module', 'stochastics'], function (controllers, stoch) {
         /* Simulation runner */
         $scope.runSimulation = function () {
             var sol;
-            if ($scope.method === 'euler')
+            if ($scope.method.value === 'euler')
                 sol = stoch.euler(dorbit, dconstant, $scope.initial, $scope.dt, 
                         $scope.tfinal, $scope.pA, $scope.pD);
-            else if ($scope.method === 'milstein')
+            else if ($scope.method.value === 'milstein')
                 sol = stoch.euler(dorbit, dconstant, $scope.initial, $scope.dt, 
                         $scope.tfinal, $scope.pA, $scope.pD);
             else
                 sol = stoch.colour(dorbit, dconstant, $scope.sigma, $scope.correlation,
                         $scope.initial, $scope.dt, $scope.tfinal, $scope.pA, $scope.pD);
-            console.log([dorbit, dconstant, $scope.sigma, $scope.correlation,
-                    $scope.initial, $scope.dt, $scope.tfinal, $scope.pA, $scope.pD]);
             $scope.plotData = extractPhase(sol);
         };
     }]);

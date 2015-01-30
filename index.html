@@ -28,10 +28,8 @@
         <fieldset>
             <legend>Numerical Scheme</legend>
             <p>
-                <select id="sim-select" ng-model="method">
-                    <option value="euler">Euler-Maruyama</option>
-                    <option value="milstein">Milstein</option>
-                    <option value="colour">Coloured Noise</option>
+                <select id="sim-select" ng-model="method"
+                    ng-options="m as m.label for m in methods">
                 </select>
                 <label for="sim-select">Simulation Method</label>
             </p>
